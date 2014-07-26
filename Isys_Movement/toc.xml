@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Adrenahline" APIVersion="9" Name="Isys_Movement" Description="Sprint and dodge bars for Isys ui.">
+    <Script Name="Isys_Movement.lua"/>
+    <Form Name="Isys_Movement.xml"/>
+    <ReplaceAddon Name="SprintMeter"/>
+</Addon>

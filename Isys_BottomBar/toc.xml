@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Malachi Draven" APIVersion="9" Name="Isys_BottomBar" Description="Changes the bottom bar  to a space grunge theme." Version="1">
+    <Script Name="Isys_BottomBar.lua"/>
+    <Form Name="Isys_BottomBar.xml"/>
+    <ReplaceAddon Name="XPBar"/>
+</Addon>

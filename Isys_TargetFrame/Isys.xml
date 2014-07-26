@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sprites>
+    <Sprite Name="UnitBorders" Cycle="1">
+        <Frame Texture="Isys_TargetFrame\assets\HealthBarBorders.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="225" y0="0" y1="0" y2="0" y3="0" y4="0" y5="52" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthBarBG" Cycle="1">
+        <Frame Texture="Isys_TargetFrame\assets\HealthBarBG.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthFill" Cycle="1">
+        <Frame Texture="Isys_TargetFrame\assets\HealthGradient.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="ShieldFill" Cycle="1">
+        <Frame Texture="Isys_TargetFrame\assets\ShieldGradient.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="13" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="FocusBorder" Cycle="1">
+        <Frame Texture="Isys_TargetFrame\assets\FocusBorder.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="129" y0="0" y1="0" y2="0" y3="0" y4="0" y5="28" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+</Sprites>

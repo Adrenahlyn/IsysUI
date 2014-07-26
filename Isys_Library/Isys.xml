@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sprites>
+    <Sprite Name="UnitBorders" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthBarBorders.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="226" y0="0" y1="0" y2="0" y3="0" y4="0" y5="53" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthBarBG" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthBarBG.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthFill" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthGradient.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="ShieldFill" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\ShieldGradient.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="13" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="FocusBorder" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\FocusBorder.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="129" y0="0" y1="0" y2="0" y3="0" y4="0" y5="28" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="GradientFill" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\TestGradient.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="400" y0="0" y1="0" y2="0" y3="0" y4="0" y5="200" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="Grad1" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\Gradient2.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="254" y0="0" y1="0" y2="0" y3="0" y4="0" y5="52" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="NewSprite" Cycle="1">
+        <Frame Texture="&lt; No Texture Selected &gt;" x0="0" x1="0" x2="0" x3="0" x4="0" x5="0" y0="0" y1="0" y2="0" y3="0" y4="0" y5="0" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="Grad2" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\Gradient1.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="254" y0="0" y1="0" y2="0" y3="0" y4="0" y5="52" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthOverlay" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthGradientOverlay.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthFill2" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthFill.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="ShieldFill2" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\ShieldFill.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="15" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="HealthFill3" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\HealthFill2.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="260" y0="0" y1="0" y2="0" y3="0" y4="0" y5="33" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="BottomBar" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\BottomBar2.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="1920" y0="8" y1="8" y2="8" y3="8" y4="8" y5="63" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="XPBar" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\XPBar.tga" x0="1" x1="1" x2="1" x3="1" x4="1" x5="275" y0="4" y1="4" y2="4" y3="4" y4="4" y5="26" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="PathBar" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\PathBar.tga" x0="6" x1="6" x2="6" x3="6" x4="6" x5="280" y0="5" y1="5" y2="5" y3="5" y4="5" y5="26" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="TopBar" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\TopBar.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="1920" y0="0" y1="0" y2="0" y3="0" y4="0" y5="56" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="ResourceBackground" Cycle="1">
+        <Frame Texture="Isys_Library\assets\ResourceBar\ResourceBackground.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="283" y0="0" y1="0" y2="0" y3="0" y4="0" y5="34" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="RuneBar1" Cycle="1">
+        <Frame Texture="Isys_Library\assets\SpellSlinger\RunePowerBar1.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="32" y0="0" y1="0" y2="0" y3="0" y4="0" y5="32" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="CastBarBorder" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\TargetCastBarBorder.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="225" y0="0" y1="0" y2="0" y3="0" y4="0" y5="25" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="CastBarFill" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\TargetCastBarFill.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="21" Stretchy="1" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="CastBG" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\TargetCastBarBG.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="221" y0="0" y1="0" y2="0" y3="0" y4="0" y5="21" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="ManaBackground2" Cycle="1">
+        <Frame Texture="Isys_Library\assets\ResourceBar\manaBg.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="283" y0="0" y1="0" y2="0" y3="0" y4="0" y5="21" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="MovementBorder" Cycle="1">
+        <Frame Texture="Isys_Library\assets\movement\SquareFrameBorder.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="167" y0="0" y1="0" y2="0" y3="0" y4="0" y5="25" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <Sprite Name="Fill" Cycle="1">
+        <Frame Texture="Isys_Library\assets\Gradients\Fill.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="1980" y0="0" y1="0" y2="0" y3="0" y4="0" y5="1040" HotspotX="0" HotspotY="0" Duration="1.000" StartColor="white" EndColor="white"/>
+    </Sprite>
+    <AutoButton Name="XPButton" Texture="Isys_Library\assets\Gradients\XPButton.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="35" y0="0" y1="0" y2="0" y3="0" y4="0" y5="20" StateBits="1" Direction="Down"/>
+    <AutoButton Name="PathButton" Texture="Isys_Library\assets\Gradients\PathButton.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="57" y0="0" y1="0" y2="0" y3="0" y4="0" y5="21" Stretchy="1" StateBits="1" Direction="Down"/>
+    <AutoButton Name="InventoryButton" Texture="Isys_Library\assets\Gradients\InventoryButton2.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="46" y0="10" y1="10" y2="10" y3="10" y4="10" y5="63" Stretchy="1" StateBits="5" Direction="Across"/>
+    <AutoButton Name="InterfaceMenuButton" Texture="Isys_Library\assets\Gradients\InterfaceMenuButton.tga" x0="0" x1="0" x2="0" x3="0" x4="0" x5="47" y0="16" y1="16" y2="16" y3="16" y4="16" y5="63" StateBits="5" Direction="Across"/>
+</Sprites>

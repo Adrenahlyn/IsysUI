@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Adrenahline" APIVersion="9" Name="Isys_TargetFrame" Description="unit frames.">
+    <Script Name="Isys_TargetFrame.lua"/>
+    <Form Name="Isys_TargetFrame.xml"/>
+    <ReplaceAddon Name="TargetFrame"/>
+</Addon>
