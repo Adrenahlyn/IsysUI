@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Adrenahline" APIVersion="9" Name="Isys_CastBars" Description="Cast bars for Isys ui.">
+    <Script Name="Isys_CastBars.lua"/>
+    <Form Name="Isys_CastBars.xml"/>
+</Addon>
