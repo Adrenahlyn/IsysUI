@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Addon Author="Adrenahlyn" APIVersion="9" Name="Isys_ClassResources" Description="Class resources for Isys UI">
-    <Script Name="Isys_ClassResources.lua"/>
-    <Form Name="Isys_ClassResources.xml"/>
-</Addon>
