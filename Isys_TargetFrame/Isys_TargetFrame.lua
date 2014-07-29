@@ -232,20 +232,24 @@ function Isys_TargetFrame:OnMouseEnter( wndHandler, wndControl, x, y )
 	Event_FireGenericEvent("SendVarToRover", "wndControl", wndControl:GetName())
 	Event_FireGenericEvent("SendVarToRover", "wndHandler", wndHandler)
 	if wndControl:GetName() == "MouseCatch" then
-		local id = wndHandler:GetData().id
-		local frame,bool = self:ReturnFrame(id)
-		if not bool then
-			frame:FindChild("Text"):Show(true)
+		if wndHandler:GetData().id then
+			local id = wndHandler:GetData().id
+			local frame,bool = self:ReturnFrame(id)
+			if not bool then
+				frame:FindChild("Text"):Show(true)
+			end
 		end
 	end
 end
 
 function Isys_TargetFrame:OnMouseExit( wndHandler, wndControl, x, y )
 	if wndControl:GetName() == "MouseCatch" then
-		local id = wndHandler:GetData().id
-		local frame,bool = self:ReturnFrame(id)
-		if not bool then
-			frame:FindChild("Text"):Show(false)
+		if wndHandler:GetData().id then
+			local id = wndHandler:GetData().id
+			local frame,bool = self:ReturnFrame(id)
+			if not bool then
+				frame:FindChild("Text"):Show(false)
+			end
 		end
 	end
 end
@@ -537,6 +541,7 @@ function Isys_TargetFrame:ApplyPositions()
 	self.wndPlayer:SetAnchorOffsets(self:GetOffsets(self.tConfig.tPlayer))
 	self.wndTarget:SetAnchorOffsets(self:GetOffsets(self.tConfig.tTarget))
 	self.wndFocus:SetAnchorOffsets(self:GetOffsets(self.tConfig.tFocus))
+	self.wndSimple:SetAnchorOffsets(self:GetOffsets(self.tConfig.tTarget))
 end
 -----------------------------------------------------------------------------------------------
 -- Misc Functions
