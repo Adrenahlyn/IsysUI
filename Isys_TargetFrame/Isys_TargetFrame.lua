@@ -371,6 +371,8 @@ function Isys_TargetFrame:OnPlayerUpdate()
 	self.tPlayer.strName = GameLib.GetPlayerUnit():GetName()
 	self.tPlayer.nLevel = GameLib.GetPlayerUnit():GetLevel()
 	self.wndPlayer:FindChild("InfoText"):SetText(string.format("%s | %s", self.tPlayer.nLevel, self.tPlayer.strName))
+	self.wndPlayer:FindChild("BuffContainer"):SetUnit(GameLib.GetPlayerUnit())
+	self.wndPlayer:FindChild("DebuffContainer"):SetUnit(GameLib.GetPlayerUnit())
 	if self.tConfig.tPlayer.bShowText then
 		self.wndPlayer:FindChild("Text"):Show(true)
 	else
@@ -484,7 +486,9 @@ function Isys_TargetFrame:OnTargetUnitChanged()
 		-- if the new target doesn't match the old target then update
 		local uNewTarget = GameLib.GetTargetUnit()
 		if self.TargetUnit ~= uNewTarget then self.TargetUnit = uNewTarget end
-
+		--buffs
+		wndTarget:FindChild("BuffContainer"):SetUnit(self.TargetUnit)
+		wndTarget:FindChild("DebuffContainer"):SetUnit(self.TargetUnit)
 		-- target exist set bool to true and setup shortcut
 		self.bTargetExist = true
 		local uTarget = self.TargetUnit
