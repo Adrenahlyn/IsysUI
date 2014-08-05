@@ -24,7 +24,15 @@ local tDefaultSettings = {
 			r = (nScreenWidth / 2) + 165.5,
 			b = (nScreenHeight / 2) + 250 + 34,
 		},	
-	}
+	},
+	tEngineer = {
+		tPos = {
+			l = 960 - 140.5,
+			t = 540 + 415,
+			r = 960 + 140.5,
+			b = 540 + 415 + 31
+		},
+	},
 }
  
 -----------------------------------------------------------------------------------------------
@@ -37,6 +45,9 @@ function Isys_ClassResources:new(o)
 
     self.tConfig = {}
     self.tConfig.tSpellSlinger = {}
+    self.tConfig.tSpellSlinger.tPos = {}
+    self.tConfig.tEngineer = {}
+    self.tConfig.tEngineer.tPos = {}
 
     return o
 end
@@ -97,8 +108,11 @@ end
 function Isys_ClassResources:OnCharacterCreated()
 	local iLib = Apollo.GetAddon("Isys_Library")
 	local classId = GameLib.GetPlayerUnit():GetClassId()
+
 	if classId == GameLib.CodeEnumClass.Spellslinger then
 		self:OnCreateSlinger()
+	elseif classId == GameLib.CodeEnumClass.Engineer then
+		self:OnCreateEngineer()
 	end
 end
 
@@ -118,16 +132,17 @@ function Isys_ClassResources:OnCreateSlinger()
 	self.wndSlinger2 = self.wndSpellSlinger:FindChild("Node2")
 	self.wndSlinger3 = self.wndSpellSlinger:FindChild("Node3")
 	self.wndSlinger4 = self.wndSpellSlinger:FindChild("Node4")
+	self.wndSlingerM = self.wndSpellSlinger:FindChild("Mana")
 	self.wndSlinger1:FindChild("NodeProgress"):SetProgress(250)
 	self.wndSlinger1:FindChild("NodeProgress"):SetProgress(250)
 	self.wndSlinger2:FindChild("NodeProgress"):SetProgress(250)
 	self.wndSlinger3:FindChild("NodeProgress"):SetProgress(250)
 	self.wndSlinger4:FindChild("NodeProgress"):SetProgress(250)
+	
 
 	self.nFadeLevel = 0
-	self.xmlDoc = nil
 
-	self:Reset()
+	--self:Reset()
 end
 
 function Isys_ClassResources:OnSlingerUpdateTimer()
@@ -139,6 +154,10 @@ function Isys_ClassResources:OnSlingerUpdateTimer()
 	local bInCombat = unitPlayer:IsInCombat()
 	self.wndSpellSlinger:Show(true)
 
+	-- Mana
+	self.wndSlingerM:FindChild("ManaBar"):SetMax(unitPlayer:GetMaxMana())
+	self.wndSlingerM:FindChild("ManaBar"):SetProgress(unitPlayer:GetMana())
+
 	-- Nodes
 	local strNodeTooltip = String_GetWeaselString(Apollo.GetString("Spellslinger_SpellSurge"), nResourceCurrent, nResourceMax)
 	for idx, wndCurr in pairs({ self.wndSlinger1, self.wndSlinger2, self.wndSlinger3, self.wndSlinger4 }) do
@@ -149,22 +168,232 @@ function Isys_ClassResources:OnSlingerUpdateTimer()
 		if bSurgeActive then
 			wndCurr:FindChild("NodeProgress"):SetBarColor("xkcdBloodOrange")
 		else
-			wndCurr:FindChild("NodeProgress"):SetBarColor("xkcdBrightBlue")
+			wndCurr:FindChild("NodeProgress"):SetBarColor("ff00ffff")
 		end
 	end
 end
+
+-----------------------------------------------------------------------------------------------
+-- Engineer
+-----------------------------------------------------------------------------------------------
+
+function Isys_ClassResources:OnCreateEngineer()
+	Apollo.RegisterEventHandler("VarChange_FrameCount", 		"OnEngineerUpdateTimer", self)
+	Apollo.RegisterEventHandler("ShowActionBarShortcut", 		"OnShowActionBarShortcut", self)
+	Apollo.RegisterTimerHandler("EngineerOutOfCombatFade", 		"OnEngineerOutOfCombatFade", self)
+
+    self.wndMain = Apollo.LoadForm(self.xmlDoc, "Engineer", nil, self)
+	--self.wndMain:FindChild("StanceMenuOpenerBtn"):AttachWindow(self.wndMain:FindChild("StanceMenuBG"))
+
+	for idx = 1, 5 do
+		-- self.wndMain:FindChild("Stance"):FindChild("Stance"..idx):SetData(idx)
+	end
+	local wnd = self.wndMain
+
+	wnd:FindChild("StanceFlyOut"):Show(false)
+	wnd:FindChild("PetStanceFlyOut"):Show(false)
+
+	--self:OnShowActionBarShortcut(1, IsActionBarSetVisible(1)) -- Show petbar if active from reloadui/load screen
+	self.xmlDoc = nil
+
+	self.bMousedOver = false
+
+	if self.tConfig.tEngineer.tPos.l == nil then
+		self:Reset("Engineer")
+	end
+end
+
+function Isys_ClassResources:OnEngineerUpdateTimer()
+	if not self.wndMain then
+		return
+	end
+
+	local unitPlayer = GameLib.GetPlayerUnit()
+	local bInCombat = unitPlayer:IsInCombat()
+	local nResourceMax = unitPlayer:GetMaxResource(1)
+	local nResourceCurrent = unitPlayer:GetResource(1)
+	local nResourcePercent = nResourceCurrent / nResourceMax
+
+	local wndMainResourceFrame = self.wndMain:FindChild("MainResourceFrame")
+
+	if not wndMainResourceFrame then
+		return
+	end
+
+	local wndResourceFrame = self.wndMain:FindChild("MainResourceFrame")
+	local wndBar = wndResourceFrame:FindChild("ProgressBar")
+	local wndBarText = wndResourceFrame:FindChild("ProgressText")
+
+	wndBar:SetMax(nResourceMax)
+	wndBar:SetProgress(nResourceCurrent)
+	wndBarText:SetText(nResourceCurrent)
+
+	if nResourceCurrent < 30 then
+		wndBar:SetBarColor("ff0d0d0d")
+	elseif nResourceCurrent >= 30 and nResourceCurrent <= 70 then
+		wndBar:SetBarColor("ff00ffff")
+	elseif nResourceCurrent > 70 then
+		wndBar:SetBarColor("ff0d0d0d")
+	end
+
+	if GameLib.IsCurrentInnateAbilityActive() then
+	end
+
+	self:BtnVis()
+end
+
+----------
+-- Pet 
+----------
+
+function Isys_ClassResources:OnPetStanceBtn(wndHandler, wndControl)
+	local strName = wndHandler:GetName()
+	local nLen = string.len(strName)
+	local nStance = string.sub(wndName, nLen - 3, nLen - 3)
+	Pet_SetStance(0, tonumber(nStance)) -- First arg is for the pet ID, 0 means all engineer pets
+	self.wndMain:FindChild("PetStanceFlyOut"):Show(false)
+	self.wndMain:FindChild("PetBar"):FindChild("StanceBtn"):SetCheck(false)
+end
+
+function Isys_ClassResources:OnPetBtn(wndHandler, wndControl)
+	 local wndPetContainer = self.wndMain:FindChild("PetBarContainer")
+	 wndPetContainer:Show(not wndPetContainer:IsShown())
+end
+
+
+function Isys_ClassResources:TogglePetStance( wndHandler, wndControl, eMouseButton )
+	local bIsChecked = wndHandler:IsChecked()
+	self.wndMain:FindChild("PetStanceFlyOut"):Show(bIsChecked)
+end
+
+function Isys_ClassResources:ToggleStanceFlyOut( wndHandler, wndControl, eMouseButton )
+	local bIsChecked = wndHandler:IsChecked()
+	self.wndMain:FindChild("StanceFlyOut"):Show(bIsChecked)
+end
+
+function Isys_ClassResources:TogglePetBar( wndHandler, wndControl, eMouseButton )
+	local wnd = self.wndMain
+	local bIsChecked = wndHandler:IsChecked()
+	wnd:FindChild("PetActionBtns"):Show(bIsChecked)
+	if bIsChecked then
+		wnd:FindChild("PetBarToggle"):FindChild("PetBarToggleBtn"):ChangeArt("CRB_InterfaceMenuList:btn_InterfaceMenuList_DownArrowCentered")
+	else
+		wnd:FindChild("PetBarToggle"):FindChild("PetBarToggleBtn"):ChangeArt("HologramSprites:HoloArrowUpBtn")
+	end
+end
+
+----------
+-- Innate
+----------
+function Isys_ClassResources:OnInnateShowFlyoutClick( wndHandler, wndControl, eMouseButton, nLastRelativeMouseX, nLastRelativeMouseY )
+	if eMouseButton == 1 then
+		self.wndMain:FindChild("StanceFlyOut"):Show(not self.wndMain:FindChild("StanceFlyOut"):IsShown())
+		if self.wndMain:FindChild("StanceFlyOut"):IsShown() then
+			self:InnateFlyout()
+		end
+	end
+end
+
+function Isys_ClassResources:InnateFlyout()
+	local wndFlyoutFrame = self.wndMain:FindChild("StanceFlyOut")
+	local wndStancePopout = self.wndMain:FindChild("StanceContainer")
+	wndStancePopout:DestroyChildren()
+
+	local nCountSkippingTwo = 0
+	for idx, spellObject in pairs(GameLib.GetClassInnateAbilitySpells().tSpells) do
+		if idx % 2 == 1 then
+			nCountSkippingTwo = nCountSkippingTwo + 1
+			local strKeyBinding = GameLib.GetKeyBinding("SetStance"..nCountSkippingTwo) -- hardcoded formatting
+			local wnd = Apollo.LoadForm("Isys_ClassResources.xml", "InnateButtonTemplate", wndStancePopout, self)
+			wnd:FindChild("StanceBtnIcon"):SetSprite(spellObject:GetIcon())
+			wnd:SetData(nCountSkippingTwo)
+
+			if Tooltip and Tooltip.GetSpellTooltipForm then
+				wnd:SetTooltipDoc(nil)
+				Tooltip.GetSpellTooltipForm(self, wnd, spellObject)
+			end
+		end
+	end
+
+	local nHeight = wndStancePopout:ArrangeChildrenVert(0)
+	local nLeft, nTop, nRight, nBottom = wndFlyoutFrame:GetAnchorOffsets()
+	wndFlyoutFrame:SetAnchorOffsets(nLeft, nBottom - nHeight, nRight, nBottom)
+end
+
+function Isys_ClassResources:OnStanceBtn(wndHandler, wndControl)
+	GameLib.SetCurrentClassInnateAbilityIndex(wndControl:GetData())
+	wndControl:GetParent():GetParent():Show(false)
+end
+
+
+-----------------
+-- Misc Functions
+-----------------
+
 
 function Isys_ClassResources:ApplyPosition(wnd,tbl)
 	local x = tbl.tPos
 	wnd:SetAnchorOffsets(x.l, x.t, x.r, x.b)
 end
 
-function Isys_ClassResources:Reset()
+function Isys_ClassResources:Reset(class)
 	local iLib = Apollo.GetAddon("Isys_Library")
 	self.tConfig = nil
 	self.tConfig = {}
 	iLib:Merge(self.tConfig, tDefaultSettings)
-	self:ApplyPosition(self.wndSpellSlinger,self.tConfig.tSpellSlinger)
+	if class == "Engineer" then
+		self:ApplyPosition(self.wndMain,self.tConfig.tEngineer)
+	elseif class == "SpellSlinger" then
+		self:ApplyPosition(self.wndMain,self.tConfig.tSpellSlinger)
+	end
+end
+
+function Isys_ClassResources:OnGenPetTooltip( wndHandler, wndControl, eToolTipType, x, y )
+	local iLib = Apollo.GetAddon("Isys_Library")
+	local tPetStrings = {
+		[1] = "Commands your pet to attack your target.",
+		[2] = "Commands your pet to stop its actions and return to you.",
+		[3] = "Commands your pet to move to a location.",
+		[4] = "Commands your pet to stay at its location.",
+		[5] = "Commands your pet to attack what you attack.",
+		[6] = "Commands your pet to not attack.",
+		[7] = "Commands your pet to attack what attacks you.",
+		[8] = "Commands your pet to attack anything within range.",
+	}
+
+	wnd = wndHandler
+	wndName = wndHandler:GetName()
+	if wndName == "AttackBtn" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[1],"Attack","ffffffff"))
+	elseif wndName == "StopBtn" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[2],"Return","ffffffff"))
+	elseif wndName == "MoveToBtn" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[3],"Move To","ffffffff"))
+	elseif wndName == "Stance1" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[8], "Aggressive", "ffffffff"))
+	elseif wndName == "Stance2" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[7], "Defensive", "ffffffff"))
+	elseif wndName == "Stance3" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[6], "Passive", "ffffffff"))
+	elseif wndName == "Stance4" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[5], "Assist", "ffffffff"))
+	elseif wndName == "Stance5" then
+		wnd:SetTooltip(iLib:HelperBuildTooltip(tPetStrings[4], "Stay", "ffffffff"))
+	end
+end
+
+function Isys_ClassResources:ShowHover( wndHandler, wndControl, x, y )
+	self.bMousedOver = true
+end
+
+function Isys_ClassResources:HideHover( wndHandler, wndControl, x, y )
+	self.bMousedOver = false
+end
+
+function Isys_ClassResources:BtnVis()
+	local wnd = self.wndMain
+	wnd:FindChild("PetStanceToggle"):Show(self.bMousedOver)
+	wnd:FindChild("PetBarToggle"):Show(self.bMousedOver)
 end
 
 -----------------------------------------------------------------------------------------------
