@@ -26,6 +26,9 @@ local tDefaultSettings = {
 	tSprintBar = {
 		bHideWhenFull = false,
 	},
+	tResourceBar = {
+		bShowInnateOnBar = true,
+	},
 }
 
 local tContentWindows = {
@@ -46,6 +49,7 @@ function Isys_Settings:new(o)
     self.tSettings.tOptions = {}
     self.tSettings.tUnitFrames = {}
     self.tSettings.tSprintBar = {}
+    self.tSettings.tResourceBar = {}
 
     return o
 end
@@ -126,6 +130,10 @@ function Isys_Settings:OnCharacterCreated()
 	self:ApplyAllSettings()
 	iLib:Print("[IsysUI]:Loaded.")
 	iLib:Print("[IsysUI]: Type '/isys' to open the settings menu.")
+
+	if self.tSettings.tResourceBar.bShowInnateOnBar == nil then
+		self:Reset()
+	end
 end
 
 function Isys_Settings:OpenOptions()
@@ -148,7 +156,6 @@ function Isys_Settings:Reset()
 	self.tSettings = {}
 	iLib:Merge(self.tSettings,tDefaultSettings)
 	self:ApplyAllSettings()
-	iLib:Print(iLib:table_tostring(self.tSettings))
 
 	Event_FireGenericEvent("UnitFrameToggleText", "Player", self.tSettings.tUnitFrames.bShowPlayerTextMouseOver)
 	Event_FireGenericEvent("UnitFrameToggleText", "Target", self.tSettings.tUnitFrames.bShowTargetText)
@@ -162,6 +169,7 @@ function Isys_Settings:ApplyAllSettings()
 	local wndOptions = self.wndMain:FindChild("Options")
 	local wndUnitFrames = self.wndMain:FindChild("UnitFrames")
 	local wndSprintBar = self.wndMain:FindChild("SprintBar")
+	local wndResourceBar = self.wndMain:FindChild("Resources")
 	local settings = self.tSettings
 
 	wndOptions:FindChild("PreviewModeBtn"):SetCheck(settings.tOptions.bPreviewMode)
@@ -169,6 +177,7 @@ function Isys_Settings:ApplyAllSettings()
 	wndUnitFrames:FindChild("TogglePlayerTextBtn"):SetCheck(settings.tUnitFrames.bShowPlayerTextMouseOver)
 	wndUnitFrames:FindChild("ToggleTargetTextBtn"):SetCheck(settings.tUnitFrames.bShowTargetTextMouseOver)
 	wndSprintBar:FindChild("ToggleVisibilityBtn"):SetCheck(settings.tSprintBar.bHideWhenFull)
+	wndResourceBar:FindChild("InnateBarBtn"):SetCheck(settings.tResourceBar.bShowInnateOnBar)
 end
 
 
@@ -191,6 +200,12 @@ function Isys_Settings:SprintBarBtn( wndHandler, wndControl, eMouseButton )
 	local bIsChecked = wndControl:IsChecked()
 	self:HideContentWindows()
 	self.wndMain:FindChild("SprintBar"):Show(bIsChecked)
+end
+
+function Isys_Settings:ResourceBarBtn( wndHandler, wndControl, eMouseButton )
+	local bIsChecked = wndControl:IsChecked()
+	self:HideContentWindows()
+	self.wndMain:FindChild("Resources"):Show(bIsChecked)
 end
 
 function Isys_Settings:PlayerTextToggle( wndHandler, wndControl, eMouseButton )
@@ -223,6 +238,12 @@ function Isys_Settings:ToggleFrameLock( wndHandler, wndControl, eMouseButton )
 	local bIsChecked = wndControl:IsChecked()
 	Event_FireGenericEvent("FrameLockToggle", bIsChecked)
 	self.tSettings.tOptions.bFrameLock = bIsChecked
+end
+
+function Isys_Settings:ShowInnateOnBar( wndHandler, wndControl, eMouseButton )
+	local bIsChecked = wndControl:IsChecked()
+	Event_FireGenericEvent("InnateOnBarChange", bIsChecked)
+	self.tSettings.tOptions.bShowInnateOnBar = bIsChecked
 end
 
 ----------------------------------------------------------------------------------------------
